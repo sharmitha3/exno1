@@ -21,6 +21,37 @@ STEP 5: Remove outliers using IQR
 STEP 6: Use zscore of to remove outliers
 
 # Coding and Output
-            <<include your coding and its corressponding output screen shots here>>
+~~~
+import pandas as pd
+import numpy as np
+import seaborn as sns
+df=pd.read_csv("/content/SAMPLEIDS (1).csv")
+
+print("INFO: ")
+print(df.info())
+print()
+
+print("DESCRIBE: ",df.describe())
+print()
+print("After removing null values: ")
+print(df.dropna())
+
+data=[1,3,28,27,25,92,30,39,40,50,26,24,29,94]
+df1=pd.DataFrame(data)
+q1=df1.quantile(0.25)
+q3=df1.quantile(0.75)
+iqr=q3-q1
+low=q1-1.5*iqr
+high=q3+1.5*iqr
+print("LOWER BOUND: ",low)
+print("HIGHER BOUND: ",high)
+print("IQR: ",iqr)
+print("Q1: ",q1)
+print("Q3: ",q3)
+print()
+df1=df1[((df1>=low)&(df1<=high))]
+print("AFTER DROPPING OUTLIERS: ")
+df1.dropna()
+~~~
 # Result
           <<include your Result here>>
