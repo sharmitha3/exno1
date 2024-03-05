@@ -25,6 +25,8 @@ STEP 6: Use zscore of to remove outliers
 import pandas as pd
 import numpy as np
 import seaborn as sns
+from scipy import stats
+
 df=pd.read_csv("/content/SAMPLEIDS (1).csv")
 
 print("INFO: ")
@@ -43,15 +45,29 @@ q3=df1.quantile(0.75)
 iqr=q3-q1
 low=q1-1.5*iqr
 high=q3+1.5*iqr
+print()
 print("LOWER BOUND: ",low)
-print("HIGHER BOUND: ",high)
+print("HIGER BOUND: ",high)
 print("IQR: ",iqr)
 print("Q1: ",q1)
 print("Q3: ",q3)
+
 print()
 df1=df1[((df1>=low)&(df1<=high))]
 print("AFTER DROPPING OUTLIERS: ")
-df1.dropna()
+print(df1.dropna())
+print()
+print("CALCULATING Z SCORE: ")
+print()
+data={'weight':[12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57,60,63,66,69,202,72,75,78,81,84,232,87,90,93,96,99,258]}
+df2=pd.DataFrame(data)
+z=np.abs(stats.zscore(df2))
+print("Zscore: ",df2[z["weight"]>3])
 ~~~
+# OUTPUT
+![image](https://github.com/sharmitha3/exno1/assets/145974496/8c6d8653-d848-42b5-8edb-6ad69f8ccbce)
+
+![image](https://github.com/sharmitha3/exno1/assets/145974496/d3505669-50df-41be-9dce-1fa1aa2537de)
+
 # Result
-          <<include your Result here>>
+Hence the given data is read and performed data cleaning and saved the cleaned data to a file.
